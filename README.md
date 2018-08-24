@@ -1,0 +1,2 @@
+# verdura
+cosas para Ionic
