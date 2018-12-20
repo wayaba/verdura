@@ -5,9 +5,6 @@ metadata:
   namespace: api-afip
 spec:
   replicas: 3
-  strategy:
-    type: RollingUpdate
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: api-afip
@@ -19,17 +16,5 @@ spec:
       containers:
       - name: api-afip
         image: registry.ng.bluemix.net/api-afip/afip_api:1.0
-        resources: 
-          limits:
-            cpu: 100m
-            memory: 250Mi
-          requests:
-            cpu: 10m
-            memory: 125Mi
         ports:
-        - name: http
-          containerPort: 7872
-volumes:
-  - name: foo
-    secret:
-      secretName: api-afip-secret
+        - containerPort: 7872
