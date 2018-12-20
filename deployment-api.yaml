@@ -1,8 +1,8 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: my-app
-  namespace: my-namespace
+  name: api-afip
+  namespace: api-afip
 spec:
   replicas: 3
   strategy:
@@ -10,15 +10,15 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: my-app
+      app: api-afip
   template:
     metadata:
       labels:
-        app: my-app
+        app: api-afip
     spec:
       containers:
-      - name: my-app
-        image: travix/my-app:247dc32
+      - name: api-afip
+        image: registry.ng.bluemix.net/api-afip/afip_api:1.0
         resources: 
           limits:
             cpu: 100m
@@ -28,19 +28,8 @@ spec:
             memory: 125Mi
         ports:
         - name: http
-          containerPort: 5000
-        livenessProbe:
-          httpGet:
-            path: /liveness
-            port: 5000
-          initialDelaySeconds: 15
-          timeoutSeconds: 1
-        readinessProbe:
-          httpGet:
-            path: /readiness
-            port: 5000
-          initialDelaySeconds: 0
-          timeoutSeconds: 1
-       env:
-       - name: "CONFIGURATION_ITEM"
-         value: "value"
+          containerPort: 7872
+volumes:
+  - name: foo
+    secret:
+      secretName: api-afip-secret
