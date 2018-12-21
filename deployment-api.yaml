@@ -18,3 +18,5 @@ spec:
         image: registry.ng.bluemix.net/api-afip/afip_api:1.0
         ports:
         - containerPort: 7872
+      imagePullSecrets:
+          - name: api-afip-secret
