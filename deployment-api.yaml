@@ -16,7 +16,15 @@ spec:
       containers:
       - name: api-afip
         image: registry.ng.bluemix.net/api-afip/afip_api:1.0
+        resources: 
+          limits:
+            cpu: 100m
+            memory: 250Mi
+          requests:
+            cpu: 10m
+            memory: 125Mi
         ports:
-        - containerPort: 7872
+        - name: http
+          containerPort: 7872
       imagePullSecrets:
-          - name: api-afip-secret
+        - name: api-afip-secret
