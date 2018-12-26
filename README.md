@@ -13,8 +13,8 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2Mzg5ODkxZC00YjllLTUxMmUtYTFiNi0
 
 
 # Obtener los pods de tu namespace
-kubectl --namespace={nombre del namespace} get pods
-Ejemplo:
+kubectl --namespace=<nombre del namespace> get pods
+- Ejemplo:
 
 ```
 kubectl --namespace=api-afip get pods
@@ -22,9 +22,18 @@ kubectl --namespace=api-afip get pods
 ```
 
 # Entrar al shell dentro de un container de tu namespace
-kubectl --namespace={nombre del namespace} exec -it {nombre del pod} --container {nombre del container} -- /bin/bash
-Ejemplo:
+kubectl --namespace=<nombre del namespace> exec -it <nombre del pod> --container <nombre del container> -- /bin/bash
+- Ejemplo:
 
 ```
 kubectl --namespace=api-afip exec -it api-afip-5d947b5b77-7ww8v --container api-afip -- /bin/bash
+```
+
+
+# Copiar archivos dentro de un container de tu namespace
+kubectl cp <archivo a copiar> <nombre del namespace>/<nombre del pod>:/<ruta dentro del container> -c <nombre del container>
+ - Ejemplo:
+
+```
+kubectl cp README.md api-afip/api-afip-5d947b5b77-7ww8v:/tmp/artifacts -c api-afip
 ```
