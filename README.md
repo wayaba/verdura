@@ -71,16 +71,21 @@ spec:
 ```
 
 Conocer el deployment name
+```
 $ kubectl --namespace=api-afip get deployments
-
+```
 Exponer puertos del pod al mundo exterior
+```
 $ kubectl expose deployment tomcat-deployment --type=NodePort
-
+```
 
 Para ver por que puerto fue expuesto el servicio al mundo exterior ejecuto:
+```
 $ minikube service tomcat-deployment --url
-
 $ kubectl describe pod <nombre del pod>
+```
 
 Para hacer forward de un puerto
+```
 $ kubectl port-forward <nombre del pod> 5000:6000
+```
