@@ -43,3 +43,42 @@ kubectl cp <archivo a copiar> <nombre del namespace>/<nombre del pod>:/<ruta den
 ```
 kubectl cp README.md api-afip/api-afip-5d947b5b77-7ww8v:/tmp/artifacts -c api-afip
 ```
+
+
+Deployo el servicio
+$ kubectl apply -f ./deployment.yaml
+
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: tomcat-deployment
+spec:
+  selector:
+    matchLabels:
+      app: tomcat
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      containers:
+      - name: tomcat
+        image: tomcat:9.0
+        ports:
+        - containerPort: 8085
+
+Conocer el deployment name
+$ kubectl --namespace=api-afip get deployments
+
+Exponer puertos del pod al mundo exterior
+$ kubectl expose deployment tomcat-deployment --type=NodePort
+
+
+Para ver por que puerto fue expuesto el servicio al mundo exterior ejecuto:
+$ minikube service tomcat-deployment --url
+
+$ kubectl describe pod <nombre del pod>
+
+Para hacer forward de un puerto
+$ kubectl port-forward <nombre del pod> 5000:6000
