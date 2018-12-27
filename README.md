@@ -48,6 +48,7 @@ kubectl cp README.md api-afip/api-afip-5d947b5b77-7ww8v:/tmp/artifacts -c api-af
 Deployo el servicio
 $ kubectl apply -f ./deployment.yaml
 
+```
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
@@ -67,6 +68,7 @@ spec:
         image: tomcat:9.0
         ports:
         - containerPort: 8085
+```
 
 Conocer el deployment name
 $ kubectl --namespace=api-afip get deployments
