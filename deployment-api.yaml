@@ -16,6 +16,10 @@ spec:
       containers:
       - name: api-afip
         image: registry.ng.bluemix.net/api-afip/afip_api:1.0
+        args:
+          - "LICENSE=accept" 
+            "NODENAME=MYNODE"
+            "SERVERNAME=MYSERVER"
         resources: 
           limits:
             cpu: 100m
@@ -26,5 +30,11 @@ spec:
         ports:
         - name: http
           containerPort: 7872
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - "echo"
+                - "hola que tal"
       imagePullSecrets:
         - name: api-afip
