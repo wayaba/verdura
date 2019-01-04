@@ -16,10 +16,13 @@ spec:
       containers:
       - name: api-afip
         image: registry.ng.bluemix.net/api-afip/afip_api:1.0
-        args:
-          - "LICENSE=accept" 
-            "NODENAME=MYNODE"
-            "SERVERNAME=MYSERVER"
+        env: 
+          - name: LICENSE
+            value: accept
+          - name: NODENAME
+            value: MYNODE
+          - name: SERVERNAME
+            value: MYSERVER
         resources: 
           limits:
             cpu: 100m
