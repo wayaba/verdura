@@ -128,3 +128,110 @@ lifecycle:
           - "/work
 ```
 
+## ESTA ES LA QUE VA
+```
+============== Ingress =====================
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+ name: api-afip-ingress
+ namespace: api-afip
+spec:
+ rules:
+ - host: api-afip.spv-desa-east.mon01.containers.appdomain.cloud
+   http:
+     paths:
+     - backend:
+         serviceName: api-afip
+         servicePort: 7800
+       path: /
+ - host: web-api-afip.spv-desa-east.mon01.containers.appdomain.cloud
+   http:
+     paths:
+     - backend:
+         serviceName: api-afip
+         servicePort: 4414
+       path: /
+============== Service =====================
+apiVersion: v1
+kind: Service
+metadata:
+ name: api-afip
+ namespace: api-afip
+spec:
+ ports:
+ - name: webui
+   port: 4414
+   protocol: TCP
+   targetPort: 4414
+ - name: serverlistener
+   port: 7800
+   protocol: TCP
+   targetPort: 7800
+ - name: nodelistene:qr
+   port: 7080
+   protocol: TCP
+   targetPort: 7080
+ selector:
+   app: api-afip
+ sessionAffinity: None
+ type: ClusterIP
+===================== Deployment ==================
+apiVersion: extensions/v1beta1
+   kind: Deployment
+   metadata:
+     name: api-afip
+     namespace: api-afip
+   spec:
+     replicas: 1
+     selector:
+       matchLabels:
+         app: api-afip
+     template:
+       metadata:
+         labels:
+           app: api-afip
+       spec:
+         containers:
+         - name: api-afip
+           image: registry.ng.bluemix.net/api-afip/afip_api:1.0
+           env:
+             - name: LICENSE
+               value: accept
+             - name: NODENAME
+               value: MYNODE
+             - name: SERVERNAME
+               value: MYSERVER
+           resources:
+             limits:
+               cpu: 2
+               memory: 2Gi
+             requests:
+               cpu: 1
+               memory: 512Mi
+           terminationMessagePath: /dev/termination-log
+           terminationMessagePolicy: File
+         dnsPolicy: ClusterFirst
+         restartPolicy: Always
+         schedulerName: default-scheduler
+         securityContext: {}
+         terminationGracePeriodSeconds: 30
+           ports:
+           - containerPort: 7800
+             name: serverlistener
+             protocol: TCP
+           - containerPort: 7080
+             name: nodelistener
+             protocol: TCP
+           - containerPort: 4414
+             name: webui
+             protocol: TCP
+           lifecycle:
+             postStart:
+               exec:
+                 command:
+                   - "echo"
+                   - "hola que tal"
+         imagePullSecrets:
+           - name: api-afip
+```
