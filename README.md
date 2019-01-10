@@ -163,7 +163,7 @@ spec:
  - name: webui
    port: 4414
    protocol: TCP
-   targetPort: 4414
+   targetPort: 4415
  - name: serverlistener
    port: 7800
    protocol: TCP
