@@ -235,3 +235,10 @@ apiVersion: extensions/v1beta1
          imagePullSecrets:
            - name: api-afip
 ```
+
+
+# Obtener el deployment yaml
+ (api-afip es el nombre del deployment obtenido con kubectl -n api-afip get deployments)
+```
+$ kubectl -n api-afip get deploy api-afip -o yaml --export
+```
